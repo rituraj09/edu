@@ -17,6 +17,12 @@ Route::get('/', function () {
 
 Route::group(['prefix'=>'master'], function() {
     //Class********************************************
+    Route::group(['prefix'=>'default'], function() {
+        Route::get('/', [
+            'as' => 'default.default', 
+            'uses' => 'Master\MasterClassController@default'
+        ]);     
+    }); 
     Route::group(['prefix'=>'importclasses'], function() {
         Route::get('/', [
             'as' => 'importclasses.index', 

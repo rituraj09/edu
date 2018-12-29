@@ -15,6 +15,10 @@ class MasterClassController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function default()
+    {
+      return view('layout.admin.default');  
+    }
     public function index(request $request)
     {
         $where = [];
@@ -22,7 +26,7 @@ class MasterClassController extends Controller
             $where[] = array('name', 'LIKE', trim($request->q).'%');
         }  
         $classes = MasterClass::where('status','1')->where($where)->orderBy('serial', 'asc')->paginate(20);         
-        return view('importclass', compact('classes'));  
+        return view('admin.importclass', compact('classes'));  
     }
     public function importExcel(Request $request)
     {

@@ -22,7 +22,7 @@ class MasterSectionController extends Controller
             $where[] = array('name', 'LIKE', trim($request->q).'%');
         }  
         $section = MasterSection::where('status','1')->where($where)->orderBy('serial', 'asc')->paginate(20);         
-        return view('importsection', compact('section'));   
+        return view('admin.importsection', compact('section'));   
     }
     public function rules_edit($id)
     {	        
