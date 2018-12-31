@@ -91,8 +91,16 @@
             <li><a href="../UI/timeline.html"><i class="fa fa-circle-o"></i> Timeline</a></li>
             <li><a href="../UI/modals.html"><i class="fa fa-circle-o"></i> Modals</a></li>
           </ul>
+
         </li>
-        
+        <li >
+          <a href="#">
+            <i class="fa fa-user"></i>
+            <span>Rituraj</span> 
+          </a>
+           
+
+        </li>
       </ul>
     </section>
     <!-- /.sidebar -->
