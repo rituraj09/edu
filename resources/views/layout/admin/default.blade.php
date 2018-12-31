@@ -17,36 +17,39 @@
   <!-- AdminLTE Skins. Choose a skin from the css/skins
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="{{ asset('assets/dist/css/skins/_all-skins.min.css') }}">
-
-  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-  <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-  <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-  <![endif]-->
-
+ 
   <!-- Google Font -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+  <style>
+    .alert a{
+      text-decoration: none !important;
+    }
+  </style>
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
 <div class="wrapper"> 
-    
-<header class="main-header"> 
-    @include('layout.admin.common.header_nav')  
-    <nav class="navbar navbar-static-top"> 
-        <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </a> 
-        <div class="navbar-custom-menu"> 
-            @include('layout.admin.common.header_right')  
-        </div>
-    </nav>    
-</header> 
+  <!-- Left side column. contains the logo and sidebar -->
+  @include('layout.admin.common.header_nav')
+  @include('layout.admin.common.navbar_side')
 
-@include('layout.admin.common.navbar_side')    
+    <div class="content-wrapper">
+      <section class="content-header">
+        <h1> 
+        @yield('page_title') 
+        </h1>
+        @yield('breadcrumb') 	
+      
+      </section> 
+      
+      <section class="content"> 
+      @yield('main_content') 
+      </section> 
+    </div>
+ 
+    <footer class="main-footer"> 
+        <p>All right reserved.</p>
+      </footer>  
+
 <!-- ./wrapper -->
 
 <!-- jQuery 3 -->

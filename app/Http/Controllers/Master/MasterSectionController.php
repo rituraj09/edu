@@ -21,8 +21,8 @@ class MasterSectionController extends Controller
         if($request->q) { 
             $where[] = array('name', 'LIKE', trim($request->q).'%');
         }  
-        $section = MasterSection::where('status','1')->where($where)->orderBy('serial', 'asc')->paginate(20);         
-        return view('admin.importsection', compact('section'));   
+        $section = MasterSection::where('status','1')->where($where)->orderBy('serial', 'asc')->paginate(10);         
+        return view('admin.master.section.importsection', compact('section'));   
     }
     public function rules_edit($id)
     {	        
@@ -33,7 +33,7 @@ class MasterSectionController extends Controller
          'class_id'  => $class_id, 
       ]; 
     }
-    public function importExcel(Request $request)
+    public function importFile(Request $request)
     {
         if($request->file('import_file'))
         {
