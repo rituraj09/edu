@@ -11,8 +11,8 @@
     <div class="row">
         <div class="col-md-9">
             <div class="panel-body">    
-                <form  action="{{ url('master/importClassFile') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
-                    @csrf 
+                {!! Form::open(array('route' => 'importclasses.importFile', 'id' => 'importclasses.importFile', 'class'=>'form-horizontal', 'enctype' => 'multipart/form-data')) !!}
+               @csrf 
                     <div class="row" >      
                         <div class="col-md-12">               
                             <div class="form-group">
@@ -52,7 +52,8 @@
                             </div>
                     </div>
                     </div>
-                </form> 
+                
+                {!! Form::close() !!} 
             </div>  
         </div>
         <div class="col-md-3"> 

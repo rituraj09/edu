@@ -97,8 +97,34 @@ class MasterClassController extends Controller
         return view('admin.master.classes.create', compact('classes'));  
     }
     public function store(Request $request)
-    {
-        //
+    { 
+        DB::beginTransaction();   
+        $type    =   '';
+        $message    = '';
+        $data       = $request->all();   
+       // $user_id = Auth::id();  
+        $data['created_by'] = 1 ;   
+        $id = DB::table('master_classes')->max('id');
+        $id = (int)$id+1;
+        $data['serial']  =$id ;
+        $rules      = MasterClass::$rules;    
+        $messages      = MasterClass::$messages;   
+        $validator = Validator::make($data, $rules,$messages); 
+        if ($validator->fails()) 
+        {  
+            DB::commit();           
+            return Redirect::back()->withErrors($validator)->withInput(); 
+        }
+        if(MasterClass::create($data)) { 
+            DB::commit();    
+            return back()->with( 'success', 'Class has been added successfully !');  
+        }
+        else{ 
+            DB::commit();    
+            return back()->with( 'failed', 'Unable to store Accounting Head!');  
+        }
+                      
+   
     }
     public function show($id)
     {
