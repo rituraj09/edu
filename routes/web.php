@@ -32,7 +32,19 @@ Route::get('/', function () {
             Route::post('/store', [
                 'as' => 'importclasses.store',      
                 'uses' => 'Master\MasterClassController@store'
-            ]);      
+            ]);    
+            Route::post('/destroy/{id}', [
+                'as' => 'importclasses.destroy', 
+                'uses' => 'Master\MasterClassController@destroy'
+            ]);
+            Route::get('/edit/{id}', [
+                'as' => 'importclasses.edit', 
+                'uses' => 'Master\MasterClassController@edit'
+            ]);
+            Route::post('/update/{id}', [
+                'as' => 'importclasses.update', 
+                'uses' => 'Master\MasterClassController@update'
+            ]);  
         });   
         //Section ********************************************
         Route::group(['prefix'=>'importsection'], function() {

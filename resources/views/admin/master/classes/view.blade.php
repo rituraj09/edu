@@ -18,7 +18,8 @@
                 {{$class->name}}
                 </td> 
                 <td align="center">
-                    <button class="btn btn-xs btn-primary">Edit</button>
+                        <a href="{{route('importclasses.edit', ['id'=>Crypt::encrypt($class->id)]) }}" data-toggle="tooltip" class="btn btn-primary btn-xs" title="Edit">Edit</a>
+                  
                     <button class="btn btn-xs btn-danger">Delete</button>
                 </td>
                 </tr> 
