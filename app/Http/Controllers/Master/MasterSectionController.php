@@ -5,7 +5,9 @@ namespace App\Http\Controllers\Master;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller; 
 use App\Model\Master\MasterSection;
-use DB, Crypt, Helper, Validator, Redirect;
+use App\Model\Master\MasterClass;  
+use App\Helpers\helper;  
+use DB, Crypt, Validator, Redirect;
 use Excel; 
 
 class MasterSectionController extends Controller
@@ -94,15 +96,12 @@ class MasterSectionController extends Controller
         { 
             return back()->with('failed', 'Please select the an excel file.'); 
         } 
-    }
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    } 
     public function create()
-    {
-        //
+    { 
+        $classes   = Helper::allClasses($list = true);  
+        $section = MasterSection::where('status','1')->orderBy('serial', 'asc')->paginate(10);        
+        return view('admin.master.section.create', compact('section','classes')); 
     }
 
     /**

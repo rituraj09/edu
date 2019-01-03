@@ -18,9 +18,12 @@
                 {{$class->name}}
                 </td> 
                 <td align="center">
-                        <a href="{{route('importclasses.edit', ['id'=>Crypt::encrypt($class->id)]) }}" data-toggle="tooltip" class="btn btn-primary btn-xs" title="Edit">Edit</a>
-                  
-                    <button class="btn btn-xs btn-danger">Delete</button>
+                        {!! Form::open([ 'method' => 'POST', 'route' => ['classes.destroy', $class->id],  'onsubmit' => 'return confirmDelete()' ]) !!}
+                      
+                        <a href="{{route('classes.edit', ['id'=>Crypt::encrypt($class->id)]) }}" data-toggle="tooltip" class="btn btn-primary btn-xs" title="Edit">Edit</a>
+                        <button  data-toggle="tooltip" class=" btn btn-danger btn-xs"  title="Delete!">Delete</button>
+                        {!! Form::close() !!}
+                        
                 </td>
                 </tr> 
                 @endforeach
@@ -28,4 +31,13 @@
                 </table>  
       
                 {{ $classes->links() }}
-        
+            <script>
+                function confirmDelete() {    
+                    if (confirm("Are you sure to Delete the Record!!")) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    } 
+                  }
+                </script>

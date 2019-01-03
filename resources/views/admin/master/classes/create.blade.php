@@ -3,8 +3,8 @@
 @section('main_content') 
 <div class="panel panel-body">
     <ul class="nav nav-tabs">
-    <li class="active"><a  href="{{ route('importclasses.create') }}">Add</a></li>
-        <li><a href="{{ route('importclasses.index') }}">Import</a></li>
+    <li class="active"><a  href="{{ route('classes.create') }}">Add</a></li>
+        <li><a href="{{ route('classes.import') }}">Import</a></li>
     </ul> 
     <div class="row">
         <div class="col-md-9">
@@ -38,7 +38,7 @@
                             </div>
                         </div>
                     </div> 
-            {!! Form::open(array('route' => 'importclasses.store', 'id' => 'importclasses.store', 'class'=>'form-horizontal', 'onsubmit' => 'return validateForm()')) !!}
+            {!! Form::open(array('route' => 'classes.store', 'id' => 'classes.store', 'class'=>'form-horizontal', 'onsubmit' => 'return validateForm()')) !!}
                 <div class="row" >      
                     <div class="col-md-12">      
                         @include('admin.master.classes._create')
@@ -48,7 +48,7 @@
                 <div class="col-md-2"> </div>
                     <div class="col-md-10"> 
                         <button class="btn btn-primary" type="submit">Submit</button> 
-                        <a  href="{{ route('importclasses.create') }}"  class="btn btn-danger" >Reset</a>     
+                        <a  href="{{ route('classes.create') }}"  class="btn btn-danger" >Reset</a>     
                     </div>
                 </div>
             {!! Form::close() !!} 

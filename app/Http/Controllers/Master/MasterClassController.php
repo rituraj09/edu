@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Master;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Model\Master\MasterClass;
+use App\Model\Master\MasterSection;
 use DB, Crypt, Helper, Validator, Redirect;
 use Excel; 
 
@@ -114,7 +115,7 @@ class MasterClassController extends Controller
         }
         else{ 
             DB::commit();    
-            return back()->with( 'failed', 'Unable to store Accounting Head!');  
+            return back()->with( 'failed', 'Unable to store Record!');  
         }
                       
    
@@ -154,17 +155,42 @@ class MasterClassController extends Controller
         $classes->fill($data); 
         if($classes->save()) {
             DB::commit();     
-            return Redirect::route('importclasses.create')->with('success', 'Class has been updated successfully !'); 
+            return Redirect::route('classes.create')->with('success', 'Class has been updated successfully !'); 
         }
         else{ 
             DB::commit();    
-            return back()->with( 'failed', 'Unable to store Accounting Head!');  
+            return back()->with( 'failed', 'Unable to update Record!');  
         } 
       
     }
      
 
     public function destroy($id)
-    {    
+    {  
+        DB::beginTransaction();   
+        $sections = MasterSection::where('status','1')->where('class_id',$id)->get();
+        $sections = count($sections);
+        if((int)$sections < 1)
+        {   
+            $classes = MasterClass::find($id); 
+            $classes->status ="0";     
+            if($classes->save()) { 
+                DB::commit();    
+                return back()->with( 'success', 'Record has been deleted successfully!');  
+            }
+            else
+            { 
+                DB::commit();    
+                return back()->with( 'failed', 'Unable to delete Record!');  
+            } 
+            DB::commit();     
+            return Redirect::route('employee.accounthead.index')->with(compact('type','message', 'alert')); 
+    
+        }
+        else
+        {
+            DB::commit();    
+            return back()->with( 'failed', 'You cannot delete this Class!');   
+        }
     }
 }

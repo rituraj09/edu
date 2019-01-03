@@ -4,11 +4,15 @@
 
        
 <div class="panel panel-body"> 
+        <ul class="nav nav-tabs">
+                <li><a  href="{{ route('sections.create') }}">Add</a></li>
+                    <li class="active"><a href="{{ route('sections.import') }}">Import</a></li>
+                </ul> 
     <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-7">
                 <div class="panel-body"> 
-                    <form  action="{{ url('master/importSectionFile') }}" class="form-horizontal" method="post" enctype="multipart/form-data">
-                        @csrf 
+                        {!! Form::open(array('route' => 'sections.importFile', 'id' => 'sections.importFile', 'class'=>'form-horizontal', 'enctype' => 'multipart/form-data')) !!}
+                        @csrf    
                         <div class="row" >      
                         <div class="col-md-12">               
                             <div class="form-group">
@@ -52,47 +56,8 @@
                     </form> 
                 </div>  
             </div>
-            <div class="col-md-4"> 
-                <?php $i = ($section->currentpage()-1)* $section->perpage(); ?> 
-                <table class="table table-striped table-bordered table-hover dataTable no-footer">
-                        <thead>
-                        <tr role="row">
-                        <th  style="width: 70px;"> 
-                    <centre>Sl.No. </centre> </th>
-                        <th>
-                       
-                    <centre>Section </centre></th>                        
-                        <th >
-                        <centre>Class </centre> </th>     
-                        <th></th>      
-                        </thead>
-                        <tbody>
-                        @if(count($section) > 0)
-                        @foreach($section as $sections) 
-                        <?php   $i++;?>
-                        <tr>
-                        <td align="center">
-                        <?php echo $i;?>
-                        </td>
-                        <td align="center">
-                        {{$sections->name}}
-                        </td> 
-                        <td align="center">
-                        {{$sections->classes->name}}
-                        </td> 
-                        <td align="center">
-                            <button class="btn btn-xs btn-primary">Edit</button>
-                            <button class="btn btn-xs btn-danger">Delete</button>
-                        </td>
-                        </tr>
-                    
-                        @endforeach
-                        @endif
-                        </tbody>
-                        </table> 
-                
-                        {{ $section->links() }} 
-            
+            <div class="col-md-5">  
+            @include('admin.master.section.view') 
             </div>
         </div>
 </div>

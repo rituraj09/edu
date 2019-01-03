@@ -16,46 +16,66 @@ Route::get('/', function () {
 });
     //Class********************************************  
     Route::group(['prefix'=>'master'], function() {
-        Route::group(['prefix'=>'importclasses'], function() {
-            Route::get('/', [
-                'as' => 'importclasses.index',   
+        Route::group(['prefix'=>'classes'], function() {
+            Route::get('/import', [
+                'as' => 'classes.import',   
                 'uses' => 'Master\MasterClassController@index'
             ]);   
             Route::get('/create', [
-                'as' => 'importclasses.create',     
+                'as' => 'classes.create',     
                 'uses' => 'Master\MasterClassController@create'
             ]);   
             Route::post('/importFile', [
-                'as' => 'importclasses.importFile',      
+                'as' => 'classes.importFile',      
                 'uses' => 'Master\MasterClassController@importFile'
             ]);
             Route::post('/store', [
-                'as' => 'importclasses.store',      
+                'as' => 'classes.store',      
                 'uses' => 'Master\MasterClassController@store'
             ]);    
             Route::post('/destroy/{id}', [
-                'as' => 'importclasses.destroy', 
+                'as' => 'classes.destroy', 
                 'uses' => 'Master\MasterClassController@destroy'
             ]);
             Route::get('/edit/{id}', [
-                'as' => 'importclasses.edit', 
+                'as' => 'classes.edit', 
                 'uses' => 'Master\MasterClassController@edit'
             ]);
             Route::post('/update/{id}', [
-                'as' => 'importclasses.update', 
+                'as' => 'classes.update', 
                 'uses' => 'Master\MasterClassController@update'
             ]);  
         });   
         //Section ********************************************
-        Route::group(['prefix'=>'importsection'], function() {
-            Route::get('/', [
-                'as' => 'importsection.index',        
+        Route::group(['prefix'=>'sections'], function() {
+            Route::get('/import', [
+                'as' => 'sections.import',        
                 'uses' => 'Master\MasterSectionController@index'
             ]);     
+            Route::get('/create', [
+                'as' => 'sections.create',     
+                'uses' => 'Master\MasterSectionController@create'
+            ]);   
             Route::post('/importFile', [
-                'as' => 'importsection.importFile',       
+                'as' => 'sections.importFile',      
                 'uses' => 'Master\MasterSectionController@importFile'
-            ]);     
+            ]);
+            Route::post('/store', [
+                'as' => 'sections.store',      
+                'uses' => 'sections\MasterSectionController@store'
+            ]);    
+            Route::post('/destroy/{id}', [
+                'as' => 'sections.destroy', 
+                'uses' => 'Master\MasterSectionController@destroy'
+            ]);
+            Route::get('/edit/{id}', [
+                'as' => 'sections.edit', 
+                'uses' => 'Master\MasterSectionController@edit'
+            ]);
+            Route::post('/update/{id}', [
+                'as' => 'sections.update', 
+                'uses' => 'Master\MasterSectionController@update'
+            ]);      
         });  
     }); 
 

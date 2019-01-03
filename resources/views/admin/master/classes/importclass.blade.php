@@ -5,13 +5,13 @@
 
 <div class="panel panel-body">
     <ul class="nav nav-tabs">
-    <li><a  href="{{ route('importclasses.create') }}">Add</a></li>
-        <li class="active"><a href="{{ route('importclasses.index') }}">Import</a></li>
+    <li><a  href="{{ route('classes.create') }}">Add</a></li>
+        <li class="active"><a href="{{ route('classes.import') }}">Import</a></li>
     </ul> 
     <div class="row">
         <div class="col-md-9">
             <div class="panel-body">    
-                {!! Form::open(array('route' => 'importclasses.importFile', 'id' => 'importclasses.importFile', 'class'=>'form-horizontal', 'enctype' => 'multipart/form-data')) !!}
+                {!! Form::open(array('route' => 'classes.importFile', 'id' => 'classes.importFile', 'class'=>'form-horizontal', 'enctype' => 'multipart/form-data')) !!}
                @csrf 
                     <div class="row" >      
                         <div class="col-md-12">               
