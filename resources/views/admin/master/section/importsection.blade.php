@@ -14,7 +14,7 @@
                         {!! Form::open(array('route' => 'sections.importFile', 'id' => 'sections.importFile', 'class'=>'form-horizontal', 'enctype' => 'multipart/form-data')) !!}
                         @csrf    
                         <div class="row" >      
-                        <div class="col-md-12">               
+                            <div class="col-md-12">               
                             <div class="form-group">
                                 @if ($errors->any())
                                     <div class="alert alert-danger">
@@ -41,19 +41,19 @@
                             </div>
                         </div>
                     </div>
-                        <div class="row" >      
-                            <div class="col-md-12"> 
-                                <div class="form-group">
-                                    
-                                <label>Select the Excel File</label>
-                                    <input type="file" name="import_file" />
-                                </div>
-                                <div class="form-group">
-                                    <button class="btn btn-primary">Import File</button>
-                                </div>
-                        </div>
-                        </div>
-                    </form> 
+                    <div class="row" >      
+                        <div class="col-md-12"> 
+                            <div class="form-group">
+                                
+                            <label>Select the Excel File</label>
+                                <input type="file" name="import_file" />
+                            </div>
+                            <div class="form-group">
+                                <button class="btn btn-primary">Import File</button>
+                            </div>
+                        </div> 
+                    </div>
+                {!! Form::close() !!} 
                 </div>  
             </div>
             <div class="col-md-5">  

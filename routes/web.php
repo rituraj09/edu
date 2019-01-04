@@ -77,6 +77,42 @@ Route::get('/', function () {
                 'uses' => 'Master\MasterSectionController@update'
             ]);      
         });  
+
+          //Students ********************************************
+          Route::group(['prefix'=>'students'], function() {
+            Route::get('/import', [
+                'as' => 'students.import',        
+                'uses' => 'Master\StudentController@index'
+            ]);     
+            Route::get('/create', [
+                'as' => 'students.create',     
+                'uses' => 'Master\StudentController@create'
+            ]);   
+            Route::post('/importFile', [
+                'as' => 'students.importFile',      
+                'uses' => 'Master\StudentController@importFile'
+            ]);
+            Route::post('/store', [
+                'as' => 'students.store',      
+                'uses' => 'Master\StudentController@store'
+            ]);    
+            Route::post('/destroy/{id}', [
+                'as' => 'students.destroy', 
+                'uses' => 'Master\StudentController@destroy'
+            ]);
+            Route::get('/edit/{id}', [
+                'as' => 'students.edit', 
+                'uses' => 'Master\StudentController@edit'
+            ]);
+            Route::post('/update/{id}', [
+                'as' => 'students.update', 
+                'uses' => 'Master\StudentController@update'
+            ]);
+            Route::get('/show/{id}', [
+                'as' => 'students.show', 
+                'uses' => 'Master\StudentController@show'
+            ]);      
+        });  
     }); 
 
 

@@ -50,7 +50,7 @@
                             <div class="form-group">
                                 <button class="btn btn-primary">Import File</button>
                             </div>
-                    </div>
+                        </div> 
                     </div>
                 
                 {!! Form::close() !!} 

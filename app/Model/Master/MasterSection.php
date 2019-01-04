@@ -25,9 +25,9 @@ class MasterSection extends Model
     {
         return $this->hasMany('App\Model\Master\Student'); 
     }
-    public function sections()
+    public function results()
     {
-        return $this->hasMany('App\Model\Master\MasterSection'); 
+        return $this->hasMany('App\Model\Transaction\Result'); 
     }
     public function classes()
     {
