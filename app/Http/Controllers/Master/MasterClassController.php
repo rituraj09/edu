@@ -116,9 +116,7 @@ class MasterClassController extends Controller
         else{ 
             DB::commit();    
             return back()->with( 'failed', 'Unable to store Record!');  
-        }
-                      
-   
+        }                    
     }
 
     public function edit($id)
@@ -183,9 +181,7 @@ class MasterClassController extends Controller
                 DB::commit();    
                 return back()->with( 'failed', 'Unable to delete Record!');  
             } 
-            DB::commit();     
-            return Redirect::route('employee.accounthead.index')->with(compact('type','message', 'alert')); 
-    
+          
         }
         else
         {

@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller; 
 use App\Model\Master\MasterSection;
 use App\Model\Master\MasterClass;  
+use App\Model\Master\Student;
+use App\Model\Transaction\Result;
 use App\Helpers\helper;  
 use DB, Crypt, Validator, Redirect;
 use Excel; 
@@ -102,61 +104,112 @@ class MasterSectionController extends Controller
         $classes   = Helper::allClasses($list = true);  
         $section = MasterSection::where('status','1')->orderBy('serial', 'asc')->paginate(10);        
         return view('admin.master.section.create', compact('section','classes')); 
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    } 
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+        DB::beginTransaction();    
+        $data       = $request->all();   
+       // $user_id = Auth::id();  
+        $data['created_by'] = 1 ;   
+        $id = DB::table('master_sections')->max('id');
+        $id = (int)$id+1;
+        $data['serial']  =$id ;
+        $classid = $request['class_id'];
+        $rules      = $this->rules_edit($classid);    
+        $messages      = MasterSection::$messages;   
+        $validator = Validator::make($data, $rules,$messages); 
+        if ($validator->fails()) 
+        {  
+            DB::commit();           
+            return Redirect::back()->withErrors($validator)->withInput(); 
+        }
+        if(MasterSection::create($data)) { 
+            DB::commit();    
+            return back()->with( 'success', 'Section has been added successfully !');  
+        }
+        else{ 
+            DB::commit();    
+            return back()->with( 'failed', 'Unable to store Record!');  
+        }
+    } 
     public function edit($id)
     {
-        //
+        $id = Crypt::decrypt($id);  
+        $classes   = Helper::allClasses($list = true);  
+        $sectionbyid = MasterSection::findOrFail($id);  
+        $section = MasterSection::where('status','1')->orderBy('serial', 'asc')->paginate(10);            
+        return view('admin.master.section.edit', compact('section','sectionbyid','classes'));    
+    } 
+    public function rules_update($id, $classid)
+    {	        
+        $name  				= 'required|max:127|unique:master_sections,name,0,status,id,!'.$id.',class_id,'.$classid;  
+        $class_id 	        = 'required|exists:master_classes,id'; 
+         return [ 
+         'name'  => $name,
+         'class_id'  => $class_id, 
+      ]; 
     }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+        DB::beginTransaction();   
+        $id = Crypt::decrypt($id);   
+                        
+        $classid = $request['class_id'];  
+        $rules      = $this->rules_update($id,$classid);     
+        $messages      = MasterSection::$messages;   
+        $data       = $request->all();  
+        $data['updated_by'] = 1 ;   
+        $sections = MasterSection::find($id);     
+        $validator = Validator::make($data, $rules,$messages);
+        if ($validator->fails())
+        {
+            DB::commit();
+            return Redirect::back()->withErrors($validator)->withInput(); 
+        }
+        $sections->fill($data); 
+        if($sections->save()) {
+            DB::commit();     
+            return Redirect::route('sections.create')->with('success', 'Section has been updated successfully !'); 
+        }
+        else{ 
+            DB::commit();    
+            return back()->with( 'failed', 'Unable to update Record!');  
+        } 
+    } 
     public function destroy($id)
     {
-        //
+        DB::beginTransaction();   
+        $students = Student::where('status','1')->where('section_id',$id)->get();
+        $students = count($students);
+        if((int)$students < 1)
+        {   
+            $results = Result::where('status','1')->where('section_id',$id)->get();
+            $results = count($results);
+            if((int)$results < 1)
+            {
+                $sections = MasterSection::find($id); 
+                $sections->status ="0";     
+                if($sections->save()) { 
+                    DB::commit();    
+                    return back()->with( 'success', 'Record has been deleted successfully!');  
+                }
+                else
+                { 
+                    DB::commit();    
+                    return back()->with( 'failed', 'Unable to delete Record!');  
+                } 
+            }
+            else
+            {
+                DB::commit();    
+                return back()->with( 'failed', 'You cannot delete this Section!');   
+            }
+    
+        }
+        else
+        {
+            DB::commit();    
+            return back()->with( 'failed', 'You cannot delete this Section!');   
+        }
     }
 }

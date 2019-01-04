@@ -62,7 +62,7 @@ Route::get('/', function () {
             ]);
             Route::post('/store', [
                 'as' => 'sections.store',      
-                'uses' => 'sections\MasterSectionController@store'
+                'uses' => 'Master\MasterSectionController@store'
             ]);    
             Route::post('/destroy/{id}', [
                 'as' => 'sections.destroy', 

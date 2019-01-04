@@ -26,8 +26,11 @@
         {{$sections->classes->name}}
         </td> 
         <td align="center">
-            <button class="btn btn-xs btn-primary">Edit</button>
-            <button class="btn btn-xs btn-danger">Delete</button>
+        {!! Form::open([ 'method' => 'POST', 'route' => ['sections.destroy', $sections->id],  'onsubmit' => 'return confirmDelete()' ]) !!}
+                      
+                        <a href="{{route('sections.edit', ['id'=>Crypt::encrypt($sections->id)]) }}" data-toggle="tooltip" class="btn btn-primary btn-xs" title="Edit">Edit</a>
+                        <button  data-toggle="tooltip" class=" btn btn-danger btn-xs"  title="Delete!">Delete</button>
+                        {!! Form::close() !!} 
         </td>
         </tr>
     
@@ -37,3 +40,14 @@
         </table> 
 
         {{ $section->links() }}  
+
+        <script>
+                function confirmDelete() {    
+                    if (confirm("Are you sure to Delete the Record!!")) {
+                        return true;
+                    }
+                    else {
+                        return false;
+                    } 
+                  }
+                </script>
