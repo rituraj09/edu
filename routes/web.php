@@ -116,6 +116,7 @@ Route::get('/', function () {
     }); 
 
 
+    Route::post('ajaxdata/ajaxsections', 'AjaxController@ajaxsections')->name('ajaxdata.ajaxsections');
 // Route::get('importExport', 'Master/MasterClassController@index');
 // Route::get('downloadExcel/{type}', 'Master/MasterClassController@downloadExcel');
 // Route::post('importExcel', 'Master/MasterClassController@importExcel');

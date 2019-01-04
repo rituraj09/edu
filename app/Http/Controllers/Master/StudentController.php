@@ -16,7 +16,7 @@ use Excel;
 class StudentController extends Controller
 { 
     public function index()
-    {
+    { 
         $classes   = Helper::allClasses($list = true);       
         return view('admin.master.students.import', compact('classes')); 
     }

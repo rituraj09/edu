@@ -42,21 +42,22 @@
                 <div class="row" >      
                     <div class="col-md-12"> 
                         <div class="form-group">
-                            {!! Form::label('Class Name:', '', array('class' => 'col-sm-2 control-label')) !!}
+                            {!! csrf_field() !!}
+                            {!! Form::label('Name:', '', array('class' => 'col-sm-2 control-label')) !!}
                             <b style='color:red;'>*</b>
                             <div class="col-sm-4">
-                            {!! Form::select('class_id', $classes, null, ['class' => 'form-control required', 'id' => 'class_id', 'placeholder' => '--Select--', ]) !!}
+                            {!! Form::select('class_id', $classes, null, ['class' => 'form-control required','required' => 'true', 'id' => 'class_id', 'onchange'=>'sections()', 'placeholder' => '--Select--'  ]) !!}
                             </div> 
                         </div>
                         <div class="form-group">
                             {!! Form::label('Section:', '', array('class' => 'col-sm-2 control-label')) !!}
                             <b style='color:red;'>*</b>
                             <div class="col-sm-4">
-                            {!! Form::select(null, ['class' => 'form-control required', 'id' => 'class_id', 'placeholder' => '--Select--', ]) !!}
+                                    {!! Form::select('section_id',[''=>'--Select--'],null,['class'=>'form-control required','required' => 'true',]) !!} 
                             </div> 
                         </div>
                         <div class="form-group"> 
-                        {!! Form::label('Import:', '', array('class' => 'col-sm-2 control-label')) !!}
+                        {!! Form::label('Choose Excel File:', '', array('class' => 'col-sm-2 control-label')) !!}
                         
                             <div class="col-sm-4">
                           <input type="file" name="import_file" />
@@ -77,4 +78,25 @@
         </div>
 </div>
 
+ <script>
+    function sections(){
+        class_id = $('#class_id').val(); 
+        var token = $("input[name='_token']").val();
+        $.ajax({ 
+            data: {class_id : class_id,_token : token}, 
+            url  : "{{route('ajaxdata.ajaxsections')}}",
+            type : 'POST',
+            dataType: 'json', 
+            success: function(data) {
+                
+            $("select[name='section_id'").html('');
+            $("select[name='section_id'").html(data.options); 
+            },     
+            error: function(data) {
+                console.log(data);
+            }
+        })     
+    }
+  </script>
+  </script>
 @stop     

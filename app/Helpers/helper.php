@@ -13,4 +13,9 @@ class Helper
     	if($list) return DB::table('master_classes')->orderBy('serial','asc')->where($where)->where('status',1)->where('is_active',1)->pluck('name','id');
 		return DB::table('master_classes')->orderBy('serial','asc')->where($where)->where('status',1)>where('is_active',1)->get();    
     }
+    public static function sectionbyclass($list = false, $classid)
+    {
+    	if($list) return DB::table('master_sections')->orderBy('serial','asc')->where('class_id',$classid)->where('status',1)->where('is_active',1)->pluck('name','id');
+		return DB::table('master_sections')->orderBy('serial','asc')->where('class_id',$classid)->where('status',1)>where('is_active',1)->get();    
+    }
 }
