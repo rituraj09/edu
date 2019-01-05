@@ -41,6 +41,14 @@
                 </div>
                 <div class="row" >      
                     <div class="col-md-12"> 
+                            <div class="form-group">
+                                    {!! csrf_field() !!}
+                                    {!! Form::label('Batch:', '', array('class' => 'col-sm-2 control-label')) !!}
+                                    <b style='color:red;'>*</b>
+                                    <div class="col-sm-4">
+                                        {!! Form::text('batch_number',    null  , ['class' => 'form-control required ', 'id' => 'batch_number', 'placeholder' => 'Batch', 'required' => 'true', 'autocomplete' => 'off', 'onkeyup'=>'batchformat()','maxlength' => 9 ]) !!}
+                                    </div> 
+                                </div>
                         <div class="form-group">
                             {!! csrf_field() !!}
                             {!! Form::label('Name:', '', array('class' => 'col-sm-2 control-label')) !!}
@@ -96,6 +104,17 @@
                 console.log(data);
             }
         })     
+    }
+    function batchformat(){
+        var batch = $('#batch_number').val(); 
+        var v =batch.length;
+        debugger;
+        if(v == 4)
+        {
+            batch = batch + '-' ;
+        }
+        $('#batch_number').val(batch); 
+              
     }
   </script>
   </script>

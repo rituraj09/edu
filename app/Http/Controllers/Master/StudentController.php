@@ -57,22 +57,23 @@ class StudentController extends Controller
             if(in_array($result[0],$extensions))
             {
                 $path = $request->file('import_file')->getRealPath();
-                $data = Excel::selectSheets('Sheet1')->load($path, function($reader)
+                $data = Excel::selectSheets('Sheet1')->load($path, function($reader)              
                 { })->get(); 
+               // return $data;
                 if($data->count()){ 
                     $i=0;
                     foreach ($data->toArray() as $key => $value) 
                     {  
                         DB::beginTransaction();    
-                        $section_id =$datas['section_id'];           
+                        $section_id =$request['section_id'];           
                         $datas['section_id'] = $request['section_id'];     
-                        $datas['batch_number'] = $value[0];         
-                        $datas['sys_id'] = $value[1];               
-                        $datas['roll_number'] = $value['roll_number'];              
-                        $datas['name'] = $value['name'];      
+                        $datas['batch_number'] = $request['batch_number'];         
+                        $datas['sys_id'] = $value['student_id'];               
+                        $datas['roll_number'] = $value['roll_no'];              
+                        $datas['name'] = $value['student_name'];      
                         $datas['fathers_name'] = $value['fathers_name'];   
                         $datas['mothers_name'] = $value['mothers_name'];   
-                        $datas['birth_date'] = $value['birth_date'];     
+                        $datas['birth_date'] = $value['dob'];     
                         $datas['permanent_address'] = $value['address'];     
                         $datas['pin_code'] = $value['pin_code'];     
                         $datas['mobile'] = $value['perents_mobile'];     

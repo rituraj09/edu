@@ -20,7 +20,7 @@
           <ul class="treeview-menu">
             <li><a href="{{ route('classes.create') }}"><i class="fa fa-circle-o"></i> Classes</a></li>
             <li><a href="{{ route('sections.create') }}"><i class="fa fa-circle-o"></i> Sections</a></li>
-            <li><a href="../layout/fixed.html"><i class="fa fa-circle-o"></i> Students</a></li>
+            <li><a href="{{ route('students.create') }}"><i class="fa fa-circle-o"></i> Students</a></li>
            </ul>
         </li>
         <li>
