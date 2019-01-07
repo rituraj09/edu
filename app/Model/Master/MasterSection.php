@@ -23,14 +23,14 @@ class MasterSection extends Model
     );  
     public function students()
     {
-        return $this->hasMany('App\Model\Master\Student'); 
+        return $this->hasMany('App\Model\Master\Student','section_id')->where('status', 1); 
     }
     public function results()
     {
-        return $this->hasMany('App\Model\Transaction\Result'); 
+        return $this->hasMany('App\Model\Transaction\Result','section_id')->where('status', 1); 
     }
     public function classes()
     {
-        return $this->belongsTo('App\Model\Master\MasterClass','class_id');
+        return $this->belongsTo('App\Model\Master\MasterClass','class_id')->where('status', 1);
     } 
 }

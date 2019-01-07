@@ -107,9 +107,13 @@ Route::get('/', function () {
             Route::post('/update/{id}', [
                 'as' => 'students.update', 
                 'uses' => 'Master\StudentController@update'
-            ]);
+            ]); 
             Route::get('/', [
                 'as' => 'students.view',        
+                'uses' => 'Master\StudentController@classview'
+            ]); 
+            Route::get('/details/{id}', [
+                'as' => 'students.details',        
                 'uses' => 'Master\StudentController@view'
             ]); 
             Route::get('/show/{id}', [

@@ -52,7 +52,7 @@
                                 </div>
                         <div class="form-group">
                             {!! csrf_field() !!}
-                            {!! Form::label('Name:', '', array('class' => 'col-sm-2 control-label')) !!}
+                            {!! Form::label('Class:', '', array('class' => 'col-sm-2 control-label')) !!}
                             <b style='color:red;'>*</b>
                             <div class="col-sm-4">
                             {!! Form::select('class_id', $classes, null, ['class' => 'form-control required','required' => 'true', 'id' => 'class_id', 'onchange'=>'sections()', 'placeholder' => '--Select--'  ]) !!}
@@ -85,6 +85,7 @@
             </div>
             
         </div>
+    </div>
 </div>
 
  <script>

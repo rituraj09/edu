@@ -73,6 +73,7 @@ class StudentController extends Controller
                         $datas['name'] = $value['student_name'];      
                         $datas['fathers_name'] = $value['fathers_name'];   
                         $datas['mothers_name'] = $value['mothers_name'];   
+                        $datas['gender'] = $value['gender'];   
                         $datas['birth_date'] = $value['dob'];     
                         $datas['permanent_address'] = $value['address'];     
                         $datas['pin_code'] = $value['pin_code'];     
@@ -127,9 +128,20 @@ class StudentController extends Controller
     {
       
     }
-    public function view()
+    public function view(Request $request, $id)
     {       
-        return view('admin.master.students.view'); 
+        $id = Crypt::decrypt($id);  
+        $where = [];
+        if($request->q) { 
+            $where[] = array('name', 'LIKE', trim($request->q).'%');
+        }  
+        $student = Student::where('status','1')->where('section_id',$id)->where($where)->orderBy('batch_number', 'asc')->paginate(10);         
+         return view('admin.master.students.view', compact('student')); 
+    }
+    public function classview()
+    {     
+        $class = MasterClass::where('status','1')->orderBy('serial', 'asc')->paginate(30);         
+        return view('admin.master.students.classview', compact('class')); 
     }
     public function show($id)
     {

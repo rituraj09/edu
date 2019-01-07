@@ -9,7 +9,7 @@ class Student extends Model
     protected $table = 'students';
     public $primaryKey = 'id';
     public $timestamps =true;
-    protected $fillable 	= array('sys_id','section_id','batch_number','roll_number','name','fathers_name','mothers_name','birth_date','permanent_address','pin_code','mobile','email','remarks','created_by'); 
+    protected $fillable 	= array('sys_id','section_id','batch_number','roll_number','name','fathers_name','mothers_name','gender','birth_date','permanent_address','pin_code','mobile','email','remarks','created_by'); 
     protected $guarded   	= ['_token']; 
     
     public static $messages = array(        
@@ -20,5 +20,5 @@ class Student extends Model
     public function sections()
     {
         return $this->belongsTo('App\Model\Master\MasterSection','section_id');
-    } 
+    }  
 }

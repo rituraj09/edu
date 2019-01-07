@@ -21,6 +21,8 @@ class MasterClass extends Model
     );  
     public function sections()
     {
-        return $this->hasMany('App\Model\Master\MasterSection'); 
-	}
+        return $this->hasMany('App\Model\Master\MasterSection','class_id')->where('status', 1); 
+    }
+   
+
 }
