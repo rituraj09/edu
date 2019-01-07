@@ -118,8 +118,8 @@ class StudentController extends Controller
         } 
     } 
     public function create()
-    {
-         
+    {       
+        return view('admin.master.students.create'); 
     }
 
     
@@ -127,7 +127,10 @@ class StudentController extends Controller
     {
       
     }
- 
+    public function view()
+    {       
+        return view('admin.master.students.view'); 
+    }
     public function show($id)
     {
    
